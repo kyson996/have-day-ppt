@@ -1194,8 +1194,7 @@ addEventListener('touchend',e=>{
 
 go(0);
 </script>
-<script src="https://cdn.jsdelivr.net/npm/lucide@latest/dist/umd/lucide.min.js"></script>
-<script>lucide.createIcons();</script>
+<!-- Lucide icons not used in this deck -->
 
 <!-- ============ Motion One 动效引擎（本地优先,CDN 兜底） ============
      加载策略:先 ./assets/motion.min.js(本地,离线可用),失败 fallback 到 jsDelivr CDN
@@ -1208,13 +1207,9 @@ let motion;
 try {
   motion = await import('./assets/motion.min.js');
 } catch(e1) {
-  try {
-    motion = await import('https://cdn.jsdelivr.net/npm/motion@11.11.17/+esm');
-  } catch(e2) {
-    console.warn('[motion] local + CDN both failed, disabling animations', e1, e2);
-    document.querySelectorAll('[data-anim]').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
-    document.querySelectorAll('[data-animate="pipeline"] [data-anim]').forEach(el=>el.style.opacity='1');
-  }
+  console.warn('[motion] local failed, disabling animations');
+  document.querySelectorAll('[data-anim]').forEach(el=>{el.style.opacity='1';el.style.transform='none'});
+  document.querySelectorAll('[data-animate="pipeline"] [data-anim]').forEach(el=>el.style.opacity='1');
 }
 
 if(motion){
